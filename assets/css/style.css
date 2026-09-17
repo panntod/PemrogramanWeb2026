@@ -152,7 +152,6 @@ form label {
 form input,
 form select {
     width: 100%;
-    max-width: 400px;
     padding: 0.55rem 0.7rem;
     border: 1px solid #cdd4da;
     border-radius: 4px;
