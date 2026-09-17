@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SIMPUS-Mini | Add Member</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <title>SIMPUS-Mini | Tambah Anggota</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
     <header>
         <h1>SIMPUS-Mini</h1>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle">
-        <label for="nav-toggle" class="nav-toggle-label">&#9776;</label>
+        <button type="button" id="nav-toggle-btn" class="nav-toggle-label" aria-label="Menu">&#9776;</button>
         <nav>
             <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../buku/list.html">List Buku</a></li>
-                <li><a href="tambah.html">Tambah Buku</a></li>
-                <li><a href="list.html">List Anggota</a></li>
+                <li><a href="../index.html">Beranda</a></li>
+                <li><a href="../buku/list.html">Daftar Buku</a></li>
+                <li><a href="list.html">Daftar Anggota</a></li>
                 <li><a href="tambah.html">Tambah Anggota</a></li>
             </ul>
         </nav>
@@ -24,33 +22,34 @@
 
     <main>
         <section>
-            <h2>Add Member</h2>
-            <form>
+            <h2>Tambah Anggota</h2>
+            <form id="form-tambah">
                 <p>
-                    <label for="name">Name</label><br>
-                    <input type="text" id="name" name="name" required>
+                    <label for="nama">Nama</label><br>
+                    <input type="text" id="nama" name="nama" required>
                 </p>
                 <p>
-                    <label for="member_id">Member ID</label><br>
-                    <input type="text" id="member_id" name="member_id" required>
+                    <label for="no_anggota">No. Anggota</label><br>
+                    <input type="text" id="no_anggota" name="no_anggota" required>
                 </p>
                 <p>
-                    <label for="address">Address</label><br>
-                    <input type="text" id="address" name="address">
+                    <label for="alamat">Alamat</label><br>
+                    <input type="text" id="alamat" name="alamat">
                 </p>
                 <p>
-                    <label for="phone">Phone</label><br>
-                    <input type="text" id="phone" name="phone">
+                    <label for="no_hp">No. HP</label><br>
+                    <input type="text" id="no_hp" name="no_hp">
                 </p>
                 <p>
-                    <button type="submit">Save</button>
+                    <button type="submit">Simpan</button>
                 </p>
             </form>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 SIMPUS-Mini &mdash; Jobsheet 3</p>
+        <p>&copy; 2026 SIMPUS-Mini &mdash; Jobsheet 5</p>
     </footer>
+    <script src="../assets/js/app.js"></script>
 </body>
 </html>
