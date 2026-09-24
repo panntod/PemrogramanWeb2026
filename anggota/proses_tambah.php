@@ -1,12 +1,18 @@
 <?php
 session_start();
 
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: list.php');
+    exit;
+}
+
 $nama = trim($_POST['nama'] ?? '');
 $noAnggota = trim($_POST['no_anggota'] ?? '');
 $alamat = trim($_POST['alamat'] ?? '');
 $noHp = trim($_POST['no_hp'] ?? '');
 
 $errors = [];
+
 if ($nama === '') {
     $errors[] = "Nama wajib diisi.";
 }
@@ -24,11 +30,12 @@ if (!isset($_SESSION['anggota'])) {
     $_SESSION['anggota'] = [];
 }
 
+
 $_SESSION['anggota'][] = [
-    'nama' => $nama,
-    'no_anggota' => $noAnggota,
-    'alamat' => $alamat,
-    'no_hp' => $noHp,
+    'nama' => htmlspecialchars($nama), 
+    'no_anggota' => htmlspecialchars($noAnggota),
+    'alamat' => htmlspecialchars($alamat),
+    'no_hp' => htmlspecialchars($noHp),
 ];
 
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];

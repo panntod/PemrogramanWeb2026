@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: list.php');
+    exit;
+}
+
 $judul = trim($_POST['judul'] ?? '');
 $pengarang = trim($_POST['pengarang'] ?? '');
 $tahun = $_POST['tahun'] ?? '';
@@ -8,8 +13,6 @@ $isbn = trim($_POST['isbn'] ?? '');
 $stok = $_POST['stok'] ?? '';
 $kategori = trim($_POST['kategori'] ?? '');
 
-// Validasi server-side — wajib ada meski sudah divalidasi JS di Jobsheet 5,
-// karena validasi client bisa dilewati (nonaktifkan JS / kirim request manual).
 $errors = [];
 if ($judul === '') {
     $errors[] = "Judul wajib diisi.";
@@ -35,12 +38,12 @@ if (!isset($_SESSION['buku'])) {
 }
 
 $_SESSION['buku'][] = [
-    'judul' => $judul,
-    'pengarang' => $pengarang,
+    'judul' => htmlspecialchars($judul),
+    'pengarang' => htmlspecialchars($pengarang),
     'tahun' => (int) $tahun,
-    'isbn' => $isbn,
+    'isbn' => htmlspecialchars($isbn),
     'stok' => (int) $stok,
-    'kategori' => $kategori,
+    'kategori' => htmlspecialchars($kategori),
 ];
 
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil ditambahkan.'];
