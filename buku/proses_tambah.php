@@ -1,5 +1,6 @@
 <?php
 session_start();
+require __DIR__ . '/../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: list.php');
@@ -14,6 +15,7 @@ $stok = $_POST['stok'] ?? '';
 $kategori = trim($_POST['kategori'] ?? '');
 
 $errors = [];
+
 if ($judul === '') {
     $errors[] = "Judul wajib diisi.";
 }
@@ -33,18 +35,34 @@ if (!empty($errors)) {
     exit;
 }
 
+if ($isbn !== '' && !preg_match('/^[0-9-]+$/', $isbn)) {
+    $errors[] = "ISBN hanya boleh berisi angka dan tanda hubung (-).";
+}
+
+
+if (!empty($errors)) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => implode(' ', $errors)];
+    header('Location: tambah.php');
+    exit;
+}
+
 if (!isset($_SESSION['buku'])) {
     $_SESSION['buku'] = [];
 }
 
-$_SESSION['buku'][] = [
-    'judul' => htmlspecialchars($judul),
-    'pengarang' => htmlspecialchars($pengarang),
+$stmt = $pdo->prepare(
+    "INSERT INTO buku (judul, pengarang, tahun, isbn, stok, kategori)
+     VALUES (:judul, :pengarang, :tahun, :isbn, :stok, :kategori)
+     RETURNING id"
+);
+$stmt->execute([
+    'judul' => $judul,
+    'pengarang' => $pengarang,
     'tahun' => (int) $tahun,
-    'isbn' => htmlspecialchars($isbn),
+    'isbn' => $isbn,
     'stok' => (int) $stok,
-    'kategori' => htmlspecialchars($kategori),
-];
+    'kategori' => $kategori,
+]);
 
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Buku berhasil ditambahkan.'];
 header('Location: list.php');
