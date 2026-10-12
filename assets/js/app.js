@@ -15,17 +15,22 @@ function initNavToggle() {
 // anggota/hapus.php). Konfirmasi dilakukan pada event "submit" agar bisa
 // dibatalkan (preventDefault) sebelum request terkirim.
 function initHapusConfirm() {
-    document.addEventListener("submit", function (e) {
-        const form = e.target;
-        if (!form.classList.contains("form-hapus")) return;
+  document.querySelectorAll("form.form-hapus").forEach(function (form) {
+    if (form.dataset.confirmInit === "true") return;
+    form.dataset.confirmInit = "true";
 
-        const row = form.closest("tr");
-        const nama = row ? row.querySelector("td")?.textContent : "data ini";
-        const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
-        if (!yakin) {
-            e.preventDefault();
-        }
+    form.addEventListener("submit", function (e) {
+      const row = form.closest("tr");
+      const kolomPertama = row?.querySelector("td");
+      const nama = kolomPertama?.textContent.trim() || "data ini";
+
+      const yakin = window.confirm(`Yakin ingin menghapus "${nama}"?`);
+
+      if (!yakin) {
+        e.preventDefault();
+      }
     });
+  });
 }
 
 // ===== Filter/pencarian tabel real-time =====

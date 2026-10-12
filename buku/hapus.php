@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Validasi ID
+// Validasi ID buku
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
-if (!$id || $id < 1) {
+if ($id === false || $id === null || $id < 1) {
     $_SESSION['flash'] = [
         'type' => 'error',
         'pesan' => 'ID buku tidak valid.'
@@ -23,33 +23,38 @@ if (!$id || $id < 1) {
 }
 
 try {
-    // Hapus buku berdasarkan ID
-    $stmt = $pdo->prepare(
-        'DELETE FROM buku WHERE id = :id'
-    );
+    // Pastikan buku tersedia
+    $cek = $pdo->prepare('SELECT id FROM buku WHERE id = :id');
+    $cek->execute(['id' => $id]);
 
-    $stmt->execute(['id' => $id]);
-
-    // Periksa apakah ada baris yang benar-benar terhapus
-    if ($stmt->rowCount() > 0) {
-        $_SESSION['flash'] = [
-            'type' => 'success',
-            'pesan' => 'Buku berhasil dihapus.'
-        ];
-    } else {
+    if (!$cek->fetch()) {
         $_SESSION['flash'] = [
             'type' => 'error',
             'pesan' => 'Buku tidak ditemukan atau sudah dihapus.'
         ];
+
+        header('Location: list.php');
+        exit;
     }
+
+    // Hapus data buku
+    $stmt = $pdo->prepare('DELETE FROM buku WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+
+    $_SESSION['flash'] = [
+        'type' => 'success',
+        'pesan' => 'Buku berhasil dihapus.'
+    ];
+
 } catch (PDOException $e) {
     error_log('Gagal menghapus buku: ' . $e->getMessage());
 
     $_SESSION['flash'] = [
         'type' => 'error',
-        'pesan' => 'Gagal menghapus buku. Periksa relasi database atau log error.'
+        'pesan' => 'Buku gagal dihapus. Periksa relasi database.'
     ];
 }
 
+// Kembali ke daftar buku
 header('Location: list.php');
 exit;

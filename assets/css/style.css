@@ -128,14 +128,38 @@ td button {
   font-size: 0.85rem;
 }
 
-td button:first-of-type {
+td a.btn-edit {
   background-color: #f0ad4e;
   color: #fff;
 }
 
-td button:last-of-type {
+td a.btn-edit:hover {
+  background-color: #a47635;
+}
+
+form.form-hapus button.btn-hapus {
   background-color: #d9534f;
   color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form.form-hapus button.btn-hapus:hover {
+  background-color: #c9302c;
+}
+
+td a.btn-edit {
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  margin-right: 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+td form.form-hapus {
+  display: inline;
 }
 
 /* ===== Form ===== */
