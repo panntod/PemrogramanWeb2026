@@ -219,20 +219,40 @@ footer {
 
 /* ===== Flash Message ===== */
 .flash {
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    margin-bottom: 1rem;
-    font-weight: 500;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .flash-success {
-    background-color: #d4edda;
-    color: #155724;
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .flash-error {
-    background-color: #f8d7da;
-    color: #721c24;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* ===== Pagination ===== */
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.pagination a {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #cdd4da;
+  border-radius: 4px;
+  color: #1d5b8a;
+}
+
+.pagination a.active {
+  background-color: #1d5b8a;
+  color: #fff;
+  border-color: #1d5b8a;
 }
 
 /* ===== Responsive Breakpoints ===== */
