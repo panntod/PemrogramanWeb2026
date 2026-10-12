@@ -56,12 +56,16 @@ if (!$buku) {
             <select id="kategori" name="kategori">
                 <?php foreach (['fiksi' => 'Fiksi', 'non-fiksi' => 'Non-Fiksi', 'referensi' => 'Referensi'] as $value => $label): ?>
                     <option value="<?php echo $value; ?>" <?php echo $buku['kategori'] === $value ? 'selected' : ''; ?>>
-                        <?php echo $label; ?></option>
+                        <?php echo $label; ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </p>
         <p>
-            <button type="submit">Update</button>
+            <button type="submit" class="btn-edit"
+                onclick="return confirm('Apakah kamu yakin ingin menyimpan perubahan buku ini?');">
+                Update
+            </button>
         </p>
     </form>
 </section>

@@ -33,23 +33,6 @@ function initHapusConfirm() {
   });
 }
 
-// ===== Filter/pencarian tabel real-time =====
-function initTableFilter() {
-  const input = document.getElementById("search-input");
-  const table = document.querySelector(".table-responsive table");
-  if (!input || !table) return;
-
-  input.addEventListener("keyup", function () {
-    const keyword = input.value.toLowerCase();
-    const rows = table.querySelectorAll("tbody tr");
-    rows.forEach(function (row) {
-      const kolomJudul = row.querySelector("td");
-      const teksJudul = kolomJudul.textContent.toLowerCase();
-      row.style.display = teksJudul.includes(keyword) ? "" : "none";
-    });
-  });
-}
-
 // ===== Validasi form (client-side) =====
 function tampilkanError(input, pesan) {
   hapusError(input);
@@ -139,6 +122,5 @@ function initValidasiForm() {
 document.addEventListener("DOMContentLoaded", function () {
   initNavToggle();
   initHapusConfirm();
-  initTableFilter();
   initValidasiForm();
 });
